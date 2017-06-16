@@ -124,7 +124,11 @@ public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
     View.OnClickListener onArtistclickedListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            int position = artistsRecyclerView.getChildLayoutPosition(view);
+            Artist artist = mAdapter.getItemByPosition(position);
+            if (mListener != null) {
+                mListener.onArtistClicked(artist);
+            }
         }
     };
 
@@ -138,13 +142,10 @@ public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        //void onFragmentInteraction(Uri uri);
+
+        void onArtistClicked(Artist artist);
+
     }
 }

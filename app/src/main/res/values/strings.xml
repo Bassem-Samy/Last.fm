@@ -6,4 +6,6 @@
     <string name="top_artists_title">Top Artists</string>
     <string name="top_tracks_title">Top Tracks</string>
     <string name="top_albums_title">Top Albums</string>
+    <string name="times">times</string>
+    <string name="plays">plays</string>
 </resources>

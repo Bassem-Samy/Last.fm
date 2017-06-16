@@ -2,27 +2,62 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin5">
+    android:layout_margin="@dimen/margin5"
+    android:id="@+id/cv_artist_item">
 
     <RelativeLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_background">
 
         <ImageView
             android:id="@+id/img_artist"
             android:layout_width="@dimen/artist_image_width"
             android:layout_height="@dimen/artist_image_height"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            />
+            android:layout_centerVertical="true" />
 
         <TextView
             android:id="@+id/txt_artist_name"
+            style="@style/ArtistTitleTextStyel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:layout_margin="@dimen/margin5"
             android:layout_toEndOf="@+id/img_artist" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_artist_name"
+            android:layout_toEndOf="@+id/img_artist"
+            android:orientation="horizontal">
+
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/txt_plays"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/margin5"
+                android:src="@drawable/play_icon" />
+
+            <TextView
+                android:id="@+id/txt_plays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/margin5"
+                android:layout_marginBottom="@dimen/margin5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/margin5"
+                android:text="@string/plays" />
+        </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

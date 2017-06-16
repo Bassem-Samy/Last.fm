@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Bassem Samy on 6/16/2017.
@@ -41,9 +42,10 @@ public class TopArtistsAdapter extends RecyclerView.Adapter<TopArtistsAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
-        ImageLoader.loadImage(mContext, mDataset.get(position).getImageUrl(), R.drawable.default_artist, holder.artistImageView);
-        holder.artistTextView.setText(mDataset.get(position).getName());
+        Artist item = mDataset.get(position);
+        ImageLoader.loadImage(mContext, item.getImageUrl(), R.drawable.default_artist, holder.artistImageView);
+        holder.artistTextView.setText(item.getName());
+        holder.numberOfPlaysTextView.setText(item.getPlaycount());
     }
 
     @Override
@@ -59,15 +61,29 @@ public class TopArtistsAdapter extends RecyclerView.Adapter<TopArtistsAdapter.Vi
         notifyDataSetChanged();
     }
 
+    public Artist getItemByPosition(int position) {
+        return mDataset.get(position);
+    }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.img_artist)
         ImageView artistImageView;
         @BindView(R.id.txt_artist_name)
         TextView artistTextView;
+        @BindView(R.id.txt_plays)
+        TextView numberOfPlaysTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        @OnClick(R.id.cv_artist_item)
+        void onItemClicked(View view) {
+            if (mOnClickListener != null) {
+                mOnClickListener.onClick(view);
+            }
         }
     }
 
