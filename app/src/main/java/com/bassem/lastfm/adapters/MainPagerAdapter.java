@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.bassem.lastfm.R;
 import com.bassem.lastfm.ui.BaseFragment;
+import com.bassem.lastfm.ui.topalbumslisting.TopAlbumsFragment;
 import com.bassem.lastfm.ui.topartistslisting.TopArtistsFragment;
 
 /**
@@ -31,6 +32,14 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        switch (position){
+            case TOP_ARTISTS_INDEX:{
+               return TopArtistsFragment.newInstance();
+            }
+            case TOP_ALBUMS_INDEX:{
+                return TopAlbumsFragment.newInstance();
+            }
+        }
         return new TopArtistsFragment();
 
     }

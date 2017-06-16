@@ -15,14 +15,16 @@ import android.widget.TextView;
 
 import com.bassem.lastfm.R;
 import com.bassem.lastfm.adapters.MainPagerAdapter;
+import com.bassem.lastfm.models.Album;
 import com.bassem.lastfm.models.Artist;
+import com.bassem.lastfm.ui.topalbumslisting.TopAlbumsFragment;
 import com.bassem.lastfm.ui.topartistslisting.TopArtistsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnEditorAction;
 
-public class MainActivity extends AppCompatActivity implements TopArtistsFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements TopArtistsFragment.OnFragmentInteractionListener, TopAlbumsFragment.OnFragmentInteractionListener {
 
     @BindView(R.id.tl_main)
     TabLayout mTabLayout;
@@ -67,10 +69,19 @@ public class MainActivity extends AppCompatActivity implements TopArtistsFragmen
     @Override
     public void onArtistClicked(Artist artist) {
         // open artist url
-        if (!TextUtils.isEmpty(artist.getUrl())) {
+        openUrl(artist.getUrl());
+    }
+
+    @Override
+    public void onAlbumClicked(Album album) {
+        openUrl(album.getUrl());
+    }
+
+    void openUrl(String url) {
+        if (!TextUtils.isEmpty(url)) {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(artist.getUrl()));
+            intent.setData(Uri.parse(url));
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
             }
