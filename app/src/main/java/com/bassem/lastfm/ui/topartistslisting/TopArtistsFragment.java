@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.bassem.lastfm.R;
+import com.bassem.lastfm.adapters.TopArtistsAdapter;
 import com.bassem.lastfm.models.Artist;
 import com.bassem.lastfm.ui.BaseFragment;
 import com.bassem.lastfm.ui.topartistslisting.di.DaggerTopArtistsComponent;
@@ -37,11 +39,10 @@ public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
     RecyclerView artistsRecyclerView;
     @BindView(R.id.prgrs_main)
     ProgressBar mainProgressBar;
-    @BindString(R.string.top_artists_title)
-    String fragmetnTitle;
     private OnFragmentInteractionListener mListener;
     @Inject
     TopArtistsPresenter mPresenter;
+    TopArtistsAdapter mAdapter;
 
     public TopArtistsFragment() {
         // Required empty public constructor
@@ -109,8 +110,23 @@ public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
 
     @Override
     public void updateData(List<Artist> topArtists) {
-
+        if (mAdapter == null) {
+            mAdapter = new TopArtistsAdapter(topArtists, getContext(), onArtistclickedListener);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            artistsRecyclerView.setLayoutManager(linearLayoutManager);
+            artistsRecyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            mAdapter.setDataset(topArtists);
+        }
     }
+
+    View.OnClickListener onArtistclickedListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    };
 
     @Override
     public void showError() {

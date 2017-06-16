@@ -3,7 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="top_artists_title">Top 5 Artists</string>
-    <string name="top_tracks_title">Top 5 Tracks</string>
+    <string name="top_artists_title">Top Artists</string>
+    <string name="top_tracks_title">Top Tracks</string>
     <string name="top_albums_title">Top Albums</string>
 </resources>

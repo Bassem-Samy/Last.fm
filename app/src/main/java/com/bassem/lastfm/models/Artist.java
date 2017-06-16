@@ -69,4 +69,16 @@ public class Artist {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public String getImageUrl() {
+        if (getImages() != null && getImages().size() > 0) {
+            for (ArtistImage img :
+                    getImages()) {
+                if (img.getSize().equalsIgnoreCase("large")) {
+                    return img.getUrl();
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -58,6 +58,7 @@ public class TopARtistsPresenterImpl implements TopArtistsPresenter {
                     @Override
                     public void accept(@NonNull List<Artist> artists) throws Exception {
                         mView.hideProgress();
+                        mView.updateData(artists);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

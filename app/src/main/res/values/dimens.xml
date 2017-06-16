@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin5">5dp</dimen>
+    <dimen name="artist_image_height">150dp</dimen>
+    <dimen name="artist_image_width">150dp</dimen>
+</resources>
