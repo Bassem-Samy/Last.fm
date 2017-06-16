@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.bassem.lastfm.ui.artistslisting.ArtistsFragment;
+import com.bassem.lastfm.ui.topartistslisting.TopArtistsFragment;
 
 /**
  * Created by Bassem Samy on 6/15/2017.
@@ -19,7 +19,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new ArtistsFragment();
+        return new TopArtistsFragment();
     }
 
     @Override

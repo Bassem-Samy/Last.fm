@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 import com.bassem.lastfm.R;
 import com.bassem.lastfm.adapters.MainPagerAdapter;
-import com.bassem.lastfm.ui.artistslisting.ArtistsFragment;
+import com.bassem.lastfm.ui.topartistslisting.TopArtistsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnEditorAction;
 
-public class MainActivity extends AppCompatActivity implements ArtistsFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements TopArtistsFragment.OnFragmentInteractionListener {
 
     @BindView(R.id.tl_main)
     TabLayout mTabLayout;

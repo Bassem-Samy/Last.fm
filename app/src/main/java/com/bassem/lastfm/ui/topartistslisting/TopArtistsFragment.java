@@ -1,27 +1,37 @@
-package com.bassem.lastfm.ui.artistslisting;
+package com.bassem.lastfm.ui.topartistslisting;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.bassem.lastfm.R;
+import com.bassem.lastfm.models.Artist;
 import com.bassem.lastfm.ui.BaseFragment;
+
+import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ArtistsFragment.OnFragmentInteractionListener} interface
+ * {@link TopArtistsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class ArtistsFragment extends BaseFragment {
-
+public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
+    @BindView(R.id.rclr_artists)
+    RecyclerView artistsRecyclerView;
+    @BindView(R.id.prgrs_main)
+    ProgressBar mainProgressBar;
     private OnFragmentInteractionListener mListener;
 
-    public ArtistsFragment() {
+    public TopArtistsFragment() {
         // Required empty public constructor
     }
 
@@ -39,7 +49,7 @@ public class ArtistsFragment extends BaseFragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-      //      mListener.onFragmentInteraction(uri);
+            //      mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -58,6 +68,26 @@ public class ArtistsFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void showProgress() {
+        mainProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mainProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void updateData(List<Artist> topArtists) {
+
+    }
+
+    @Override
+    public void showError() {
+
     }
 
     /**
