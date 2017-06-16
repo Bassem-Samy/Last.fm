@@ -34,8 +34,9 @@ public class MainActivity extends AppCompatActivity implements TopArtistsFragmen
     }
 
     private void initializeFragments() {
-        mAdapter = new MainPagerAdapter(getSupportFragmentManager());
+        mAdapter = new MainPagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(3);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 

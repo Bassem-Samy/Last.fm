@@ -1,6 +1,9 @@
 package com.bassem.lastfm.ui.topartistslisting;
 
+import android.util.Log;
+
 import com.bassem.lastfm.models.Artist;
+import com.bassem.lastfm.models.TopArtists;
 import com.bassem.lastfm.models.TopArtistsResponse;
 
 import java.util.ArrayList;
@@ -22,13 +25,20 @@ public class TopARtistsPresenterImpl implements TopArtistsPresenter {
     TopArtistsView mView;
     TopArtistsInteractor mInteractor;
 
+    public TopARtistsPresenterImpl(TopArtistsView view, TopArtistsInteractor interactor) {
+        this.mView = view;
+        this.mInteractor = interactor;
+    }
+
     @Override
+
     public void onDestroy() {
         disposeRequest();
     }
 
     @Override
     public void getUserTopArtists(String userName, int limit, String apiKey) {
+        Log.e("getUserTopArtists", "getting data for" + userName);
         disposeRequest();
         mView.showProgress();
         mDisposable = mInteractor.getTopArtists(userName, limit, apiKey)

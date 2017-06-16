@@ -3,6 +3,7 @@ package com.bassem.lastfm.ui.topartistslisting;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,10 +14,17 @@ import android.widget.ProgressBar;
 import com.bassem.lastfm.R;
 import com.bassem.lastfm.models.Artist;
 import com.bassem.lastfm.ui.BaseFragment;
+import com.bassem.lastfm.ui.topartistslisting.di.DaggerTopArtistsComponent;
+import com.bassem.lastfm.ui.topartistslisting.di.TopArtistsModule;
+import com.bassem.lastfm.utils.Constants;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +37,11 @@ public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
     RecyclerView artistsRecyclerView;
     @BindView(R.id.prgrs_main)
     ProgressBar mainProgressBar;
+    @BindString(R.string.top_artists_title)
+    String fragmetnTitle;
     private OnFragmentInteractionListener mListener;
+    @Inject
+    TopArtistsPresenter mPresenter;
 
     public TopArtistsFragment() {
         // Required empty public constructor
@@ -39,11 +51,26 @@ public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
     protected void searchUserName(String userName) {
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_artists, container, false);
+        View view = inflater.inflate(R.layout.fragment_artists, container, false);
+        ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        DaggerTopArtistsComponent.builder().topArtistsModule(new TopArtistsModule(this)).build().inject(this);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mPresenter.getUserTopArtists("rj", Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
