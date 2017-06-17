@@ -9,4 +9,6 @@
     <string name="plays">plays</string>
     <string name="minutes">minutes.</string>
     <string name="search_users_hint">Enter last.fm user name i.e. drrobbins</string>
+    <string name="empty_here">It\'s empty here, try another user name</string>
+    <string name="general_error">An error has happened, please try again</string>
 </resources>

@@ -31,6 +31,7 @@ public class TopTracksPresenterImpl implements TopTracksPresenter {
     public void getTopTracks(String userName, int limit, String apiKey) {
         disposeRequest();
         mView.showProgress();
+        mView.hidEmpty();
         mDisposable = mInteractor.getTopTracks(userName, limit, apiKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -49,6 +50,9 @@ public class TopTracksPresenterImpl implements TopTracksPresenter {
                     @Override
                     public void accept(@NonNull List<Track> tracks) throws Exception {
                         mView.hideProgress();
+                        if (tracks.size() == 0) {
+                            mView.showEmpty();
+                        }
                         mView.updateData(tracks);
                     }
                 }, new Consumer<Throwable>() {
@@ -56,6 +60,7 @@ public class TopTracksPresenterImpl implements TopTracksPresenter {
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         mView.hideProgress();
                         mView.showError();
+
                     }
                 });
     }

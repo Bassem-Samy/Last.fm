@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.bassem.lastfm.R;
 import com.bassem.lastfm.adapters.TopArtistsAdapter;
@@ -40,6 +41,8 @@ public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
     @BindView(R.id.prgrs_main)
     ProgressBar mainProgressBar;
     private OnFragmentInteractionListener mListener;
+    @BindView(R.id.empty_layout)
+    View emptyLayout;
     @Inject
     TopArtistsPresenter mPresenter;
     TopArtistsAdapter mAdapter;
@@ -50,7 +53,7 @@ public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
 
     @Override
     protected void searchUserName(String userName) {
-        if(mAdapter!=null){
+        if (mAdapter != null) {
             mAdapter.clearDataset();
         }
         mPresenter.getUserTopArtists(userName, Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
@@ -133,6 +136,17 @@ public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
 
     @Override
     public void showError() {
+        Toast.makeText(getContext(), R.string.general_error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showEmpty() {
+        emptyLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hidEmpty() {
+        emptyLayout.setVisibility(View.GONE);
 
     }
 

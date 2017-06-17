@@ -41,6 +41,7 @@ public class TopARtistsPresenterImpl implements TopArtistsPresenter {
         Log.e("getUserTopArtists", "getting data for" + userName);
         disposeRequest();
         mView.showProgress();
+        mView.hidEmpty();
         mDisposable = mInteractor.getTopArtists(userName, limit, apiKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -58,7 +59,11 @@ public class TopARtistsPresenterImpl implements TopArtistsPresenter {
                     @Override
                     public void accept(@NonNull List<Artist> artists) throws Exception {
                         mView.hideProgress();
+                        if (artists.size() == 0) {
+                            mView.showEmpty();
+                        }
                         mView.updateData(artists);
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -29,6 +29,8 @@ public class TopAlbumsPresenterImpl implements TopAlbumsPresenter {
 
     @Override
     public void getTopAlbums(String userName, int limit, String apiKey) {
+        mView.showProgress();
+        mView.hidEmpty();
         disposeRequest();
         mDisposable = mInteractor.getTopAlbums(userName, limit, apiKey)
                 .subscribeOn(Schedulers.io())
@@ -47,6 +49,9 @@ public class TopAlbumsPresenterImpl implements TopAlbumsPresenter {
                     @Override
                     public void accept(@NonNull List<Album> albums) throws Exception {
                         mView.hideProgress();
+                        if (albums.size() == 0) {
+                            mView.showEmpty();
+                        }
                         mView.updateData(albums);
 
                     }

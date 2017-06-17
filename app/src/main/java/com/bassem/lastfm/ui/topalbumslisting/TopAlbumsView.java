@@ -16,4 +16,8 @@ public interface TopAlbumsView {
     void showError();
 
     void updateData(List<Album> topAlbums);
+
+    void showEmpty();
+
+    void hidEmpty();
 }

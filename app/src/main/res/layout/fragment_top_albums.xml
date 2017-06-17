@@ -16,4 +16,8 @@
         android:layout_gravity="center"
         android:visibility="gone" />
 
+    <include
+        android:id="@+id/empty_layout"
+        layout="@layout/empty_results"
+        android:visibility="gone"></include>
 </FrameLayout>

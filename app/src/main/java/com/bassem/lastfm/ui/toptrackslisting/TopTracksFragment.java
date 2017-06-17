@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.bassem.lastfm.R;
 import com.bassem.lastfm.adapters.TopTracksAdapter;
@@ -36,6 +37,8 @@ public class TopTracksFragment extends BaseFragment implements TopTracksView {
     RecyclerView tracksRecyclerView;
     @BindView(R.id.prgrs_main)
     ProgressBar mainProgressBar;
+    @BindView(R.id.empty_layout)
+    View emptyLayout;
     @Inject
     TopTracksPresenter mPresenter;
     TopTracksAdapter mAdapter;
@@ -93,17 +96,17 @@ public class TopTracksFragment extends BaseFragment implements TopTracksView {
 
     @Override
     public void showProgress() {
-
+        mainProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mainProgressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showError() {
-
+        Toast.makeText(getContext(), R.string.general_error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -120,8 +123,18 @@ public class TopTracksFragment extends BaseFragment implements TopTracksView {
     }
 
     @Override
+    public void showEmpty() {
+        emptyLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hidEmpty() {
+        emptyLayout.setVisibility(View.GONE);
+    }
+
+    @Override
     protected void searchUserName(String userName) {
-        if(mAdapter!=null){
+        if (mAdapter != null) {
             mAdapter.clearDataset();
         }
         mPresenter.getTopTracks(userName, Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);

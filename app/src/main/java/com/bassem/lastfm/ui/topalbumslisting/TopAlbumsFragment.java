@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.bassem.lastfm.R;
 import com.bassem.lastfm.adapters.TopAlbumsAdapter;
@@ -35,6 +36,8 @@ public class TopAlbumsFragment extends BaseFragment implements TopAlbumsView {
     RecyclerView albumsRecyclerView;
     @BindView(R.id.prgrs_main)
     ProgressBar mainprogressBar;
+    @BindView(R.id.empty_layout)
+    View emptyLayout;
     @Inject
     TopAlbumsPresenter mPresenter;
     TopAlbumsAdapter mAdapter;
@@ -87,7 +90,7 @@ public class TopAlbumsFragment extends BaseFragment implements TopAlbumsView {
 
     @Override
     protected void searchUserName(String userName) {
-        if(mAdapter!=null){
+        if (mAdapter != null) {
             mAdapter.clearDataset();
         }
         mPresenter.getTopAlbums(userName, Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
@@ -96,17 +99,17 @@ public class TopAlbumsFragment extends BaseFragment implements TopAlbumsView {
 
     @Override
     public void showProgress() {
-
+        mainprogressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mainprogressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showError() {
-
+        Toast.makeText(getContext(), R.string.general_error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -123,6 +126,16 @@ public class TopAlbumsFragment extends BaseFragment implements TopAlbumsView {
         }
 
 
+    }
+
+    @Override
+    public void showEmpty() {
+        emptyLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hidEmpty() {
+        emptyLayout.setVisibility(View.GONE);
     }
 
     View.OnClickListener mOnAlbumClickedListener = new View.OnClickListener() {

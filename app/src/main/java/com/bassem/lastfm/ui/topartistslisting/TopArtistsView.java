@@ -16,5 +16,7 @@ public interface TopArtistsView {
     void updateData(List<Artist> topArtists);
 
     void showError();
+    void showEmpty();
+    void hidEmpty();
 
 }
