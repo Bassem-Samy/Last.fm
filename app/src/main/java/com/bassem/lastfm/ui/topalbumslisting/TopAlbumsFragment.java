@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.bassem.lastfm.R;
+import com.bassem.lastfm.adapters.TopAlbumsAdapter;
 import com.bassem.lastfm.models.Album;
 import com.bassem.lastfm.ui.BaseFragment;
 import com.bassem.lastfm.ui.topalbumslisting.di.DaggerTopAlbumsComponent;
@@ -35,6 +37,7 @@ public class TopAlbumsFragment extends BaseFragment implements TopAlbumsView {
     ProgressBar mainprogressBar;
     @Inject
     TopAlbumsPresenter mPresenter;
+    TopAlbumsAdapter mAdapter;
     private OnFragmentInteractionListener mListener;
 
     public TopAlbumsFragment() {
@@ -61,7 +64,7 @@ public class TopAlbumsFragment extends BaseFragment implements TopAlbumsView {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mPresenter.getTopAlbums("rj", Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
+        mPresenter.getTopAlbums("drrobbins", Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
     }
 
 
@@ -104,8 +107,26 @@ public class TopAlbumsFragment extends BaseFragment implements TopAlbumsView {
 
     @Override
     public void updateData(List<Album> topAlbums) {
+        if (mAdapter == null) {
+
+            mAdapter = new TopAlbumsAdapter(topAlbums, getContext(), mOnAlbumClickedListener);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            albumsRecyclerView.setLayoutManager(layoutManager);
+            albumsRecyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            mAdapter.setDataset(topAlbums);
+        }
+
 
     }
+
+    View.OnClickListener mOnAlbumClickedListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    };
 
     public static TopAlbumsFragment newInstance() {
         return new TopAlbumsFragment();

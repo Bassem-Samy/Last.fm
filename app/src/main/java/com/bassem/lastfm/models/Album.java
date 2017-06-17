@@ -70,4 +70,15 @@ public class Album {
         this.url = url;
     }
 
+    public String getImageUrl() {
+        if (getImage() != null && getImage().size() > 0) {
+            for (ImageItem img :
+                    getImage()) {
+                if (img.getSize().equalsIgnoreCase("large")) {
+                    return img.getUrl();
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -4,4 +4,7 @@
     <dimen name="artist_image_height">150dp</dimen>
     <dimen name="artist_image_width">150dp</dimen>
     <dimen name="titleTextSize">18sp</dimen>
+
+    <dimen name="album_image_width">100dp</dimen>
+    <dimen name="album_image_height">100dp</dimen>
 </resources>
