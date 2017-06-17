@@ -50,6 +50,11 @@ public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
 
     @Override
     protected void searchUserName(String userName) {
+        if(mAdapter!=null){
+            mAdapter.clearDataset();
+        }
+        mPresenter.getUserTopArtists(userName, Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
+
     }
 
 
@@ -71,7 +76,7 @@ public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mPresenter.getUserTopArtists("drrobbins", Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
+        mPresenter.getUserTopArtists(Constants.DEFAULT_LASTFM_USER, Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
     }
 
 

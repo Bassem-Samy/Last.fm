@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import com.bassem.lastfm.R;
 import com.bassem.lastfm.adapters.TopTracksAdapter;
 import com.bassem.lastfm.models.Track;
+import com.bassem.lastfm.ui.BaseFragment;
 import com.bassem.lastfm.ui.toptrackslisting.di.DaggerTopTracksComponent;
 import com.bassem.lastfm.ui.toptrackslisting.di.TopTracksModule;
 import com.bassem.lastfm.utils.Constants;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * A simple Fragment that displays top tracks
  */
-public class TopTracksFragment extends Fragment implements TopTracksView {
+public class TopTracksFragment extends BaseFragment implements TopTracksView {
     private OnFragmentInteractionListener mListener;
     @BindView(R.id.rclr_tracks)
     RecyclerView tracksRecyclerView;
@@ -61,7 +62,7 @@ public class TopTracksFragment extends Fragment implements TopTracksView {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mPresenter.getTopTracks("drrobbins", Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
+        mPresenter.getTopTracks(Constants.DEFAULT_LASTFM_USER, Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
     }
 
     @Override
@@ -116,6 +117,15 @@ public class TopTracksFragment extends Fragment implements TopTracksView {
         } else {
             mAdapter.setDataset(tracks);
         }
+    }
+
+    @Override
+    protected void searchUserName(String userName) {
+        if(mAdapter!=null){
+            mAdapter.clearDataset();
+        }
+        mPresenter.getTopTracks(userName, Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
+
     }
 
     /**

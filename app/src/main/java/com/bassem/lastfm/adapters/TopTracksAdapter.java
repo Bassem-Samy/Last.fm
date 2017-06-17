@@ -70,6 +70,13 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.View
         return mDataset.get(position);
     }
 
+    public void clearDataset() {
+        if (mDataset != null) {
+            mDataset.clear();
+            notifyDataSetChanged();
+        }
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.img_track)
         ImageView trackImageView;

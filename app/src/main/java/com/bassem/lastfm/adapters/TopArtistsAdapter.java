@@ -65,6 +65,13 @@ public class TopArtistsAdapter extends RecyclerView.Adapter<TopArtistsAdapter.Vi
         return mDataset.get(position);
     }
 
+    public void clearDataset() {
+        if(mDataset!=null){
+            mDataset.clear();
+            notifyDataSetChanged();
+        }
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.img_artist)

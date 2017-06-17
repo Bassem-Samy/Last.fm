@@ -1,5 +1,6 @@
 package com.bassem.lastfm.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
@@ -10,7 +11,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bassem.lastfm.R;
@@ -21,6 +25,8 @@ import com.bassem.lastfm.models.Track;
 import com.bassem.lastfm.ui.topalbumslisting.TopAlbumsFragment;
 import com.bassem.lastfm.ui.topartistslisting.TopArtistsFragment;
 import com.bassem.lastfm.ui.toptrackslisting.TopTracksFragment;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,14 +39,18 @@ public class MainActivity extends AppCompatActivity implements TopArtistsFragmen
     @BindView(R.id.vp_main)
     ViewPager mViewPager;
     MainPagerAdapter mAdapter;
+    @BindView(R.id.edt_search)
+    EditText searchEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        looseSearchEditTextFocus();
         initializeFragments();
     }
+
 
     private void initializeFragments() {
         mAdapter = new MainPagerAdapter(getSupportFragmentManager(), this);
@@ -53,18 +63,21 @@ public class MainActivity extends AppCompatActivity implements TopArtistsFragmen
     boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             searchUser(v.getText().toString());
+            looseSearchEditTextFocus();
             return true;
         }
         return false;
     }
 
+    // loops the base fragments and notify them to search with the given userName
     private void searchUser(String userName) {
-        for (int i = 0; i < mAdapter.getCount(); i++) {
-            Fragment fr = mAdapter.getItem(i);
+        for (Fragment fr : mAdapter.getFragments()
+                ) {
             if (fr instanceof BaseFragment) {
                 ((BaseFragment) fr).searchUserName(userName);
             }
         }
+
     }
 
 
@@ -95,4 +108,14 @@ public class MainActivity extends AppCompatActivity implements TopArtistsFragmen
         }
     }
 
+    // hide keyboard after search
+    private void looseSearchEditTextFocus() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        searchEditText.clearFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
+        }
+    }
 }
