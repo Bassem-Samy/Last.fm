@@ -142,4 +142,10 @@ public class TopAlbumsFragment extends BaseFragment implements TopAlbumsView {
 
         void onAlbumClicked(Album album);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
+    }
 }

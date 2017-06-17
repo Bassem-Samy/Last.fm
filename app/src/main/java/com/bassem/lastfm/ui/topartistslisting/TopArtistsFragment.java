@@ -74,12 +74,6 @@ public class TopArtistsFragment extends BaseFragment implements TopArtistsView {
         mPresenter.getUserTopArtists("drrobbins", Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            //      mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
