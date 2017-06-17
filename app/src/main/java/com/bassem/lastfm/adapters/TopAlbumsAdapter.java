@@ -42,7 +42,7 @@ public class TopAlbumsAdapter extends RecyclerView.Adapter<TopAlbumsAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Album item = mDataset.get(position);
-        ImageLoader.loadImage(mContext, item.getImageUrl(), R.drawable.default_artist, holder.albumImageView);
+        ImageLoader.loadImage(mContext, item.getImageUrl(), R.drawable.default_album, holder.albumImageView);
         holder.nameTextView.setText(item.getName());
         holder.playCountTextView.setText(item.getPlaycount());
         holder.artistTextView.setText(item.getArtist().getName());
@@ -87,7 +87,7 @@ public class TopAlbumsAdapter extends RecyclerView.Adapter<TopAlbumsAdapter.View
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick(R.id.rltv_album_item)
+        @OnClick(R.id.cv_album_item)
         void onItemClicked(View view) {
             if (mOnItemClickListener != null) {
                 mOnItemClickListener.onClick(view);

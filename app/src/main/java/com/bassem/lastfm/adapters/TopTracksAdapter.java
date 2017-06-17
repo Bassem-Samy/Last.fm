@@ -46,7 +46,7 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Track item = mDataset.get(position);
-        ImageLoader.loadImage(mContext, item.getImageUrl(), R.drawable.default_artist, holder.trackImageView);
+        ImageLoader.loadImage(mContext, item.getImageUrl(), R.drawable.default_track, holder.trackImageView);
         holder.nameTextView.setText(item.getName());
         holder.artistTextView.setText(item.getArtist().getName());
         holder.playCountTextView.setText(item.getPlaycount());
@@ -94,7 +94,7 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.View
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick(R.id.rltv_track_item)
+        @OnClick(R.id.cv_track_item)
         void onTrackClicked(View view) {
             if (mOnItemClickListener != null) {
                 mOnItemClickListener.onClick(view);

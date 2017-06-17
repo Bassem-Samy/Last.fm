@@ -141,7 +141,10 @@ public class TopAlbumsFragment extends BaseFragment implements TopAlbumsView {
     View.OnClickListener mOnAlbumClickedListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            if (mListener != null) {
+                int position = albumsRecyclerView.getChildAdapterPosition(view);
+                mListener.onAlbumClicked(mAdapter.getItemByPosition(position));
+            }
         }
     };
 
