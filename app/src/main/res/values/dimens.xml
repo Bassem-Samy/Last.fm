@@ -7,4 +7,7 @@
 
     <dimen name="album_image_width">100dp</dimen>
     <dimen name="album_image_height">100dp</dimen>
+    <dimen name="track_image_height">75dp</dimen>
+    <dimen name="track_image_width">75dp</dimen>
+    <dimen name="separator_height">2dp</dimen>
 </resources>

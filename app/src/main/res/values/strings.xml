@@ -7,4 +7,5 @@
     <string name="top_albums_title">Top Albums</string>
     <string name="times">times</string>
     <string name="plays">plays</string>
+    <string name="minutes">minutes.</string>
 </resources>

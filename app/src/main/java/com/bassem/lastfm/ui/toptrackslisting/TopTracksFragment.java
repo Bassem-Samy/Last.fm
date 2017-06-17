@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.bassem.lastfm.R;
+import com.bassem.lastfm.adapters.TopTracksAdapter;
 import com.bassem.lastfm.models.Track;
 import com.bassem.lastfm.ui.toptrackslisting.di.DaggerTopTracksComponent;
 import com.bassem.lastfm.ui.toptrackslisting.di.TopTracksModule;
@@ -35,6 +37,7 @@ public class TopTracksFragment extends Fragment implements TopTracksView {
     ProgressBar mainProgressBar;
     @Inject
     TopTracksPresenter mPresenter;
+    TopTracksAdapter mAdapter;
 
     public TopTracksFragment() {
         // Required empty public constructor
@@ -104,7 +107,15 @@ public class TopTracksFragment extends Fragment implements TopTracksView {
 
     @Override
     public void updateData(List<Track> tracks) {
-
+        if (mAdapter == null) {
+            mAdapter = new TopTracksAdapter(tracks, getContext(), onTrackClickedListener);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            tracksRecyclerView.setLayoutManager(linearLayoutManager);
+            tracksRecyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            mAdapter.setDataset(tracks);
+        }
     }
 
     /**
@@ -122,4 +133,15 @@ public class TopTracksFragment extends Fragment implements TopTracksView {
         super.onDestroy();
         mPresenter.onDestroy();
     }
+
+    View.OnClickListener onTrackClickedListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (mListener != null) {
+                int position = tracksRecyclerView.getChildAdapterPosition(view);
+                Track track = mAdapter.getItemAt(position);
+                mListener.onTrackClicked(track);
+            }
+        }
+    };
 }

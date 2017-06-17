@@ -81,4 +81,15 @@ public class Track {
         this.url = url;
     }
 
+    public String getImageUrl() {
+        if (getImages() != null && getImages().size() > 0) {
+            for (ImageItem img :
+                    getImages()) {
+                if (img.getSize().equalsIgnoreCase("large")) {
+                    return img.getUrl();
+                }
+            }
+        }
+        return null;
+    }
 }

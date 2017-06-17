@@ -26,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnEditorAction;
 
-public class MainActivity extends AppCompatActivity implements TopArtistsFragment.OnFragmentInteractionListener, TopAlbumsFragment.OnFragmentInteractionListener ,TopTracksFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements TopArtistsFragment.OnFragmentInteractionListener, TopAlbumsFragment.OnFragmentInteractionListener, TopTracksFragment.OnFragmentInteractionListener {
 
     @BindView(R.id.tl_main)
     TabLayout mTabLayout;
@@ -79,6 +79,11 @@ public class MainActivity extends AppCompatActivity implements TopArtistsFragmen
         openUrl(album.getUrl());
     }
 
+    @Override
+    public void onTrackClicked(Track track) {
+        openUrl(track.getUrl());
+    }
+
     void openUrl(String url) {
         if (!TextUtils.isEmpty(url)) {
             Intent intent = new Intent();
@@ -90,8 +95,4 @@ public class MainActivity extends AppCompatActivity implements TopArtistsFragmen
         }
     }
 
-    @Override
-    public void onTrackClicked(Track track) {
-
-    }
 }
