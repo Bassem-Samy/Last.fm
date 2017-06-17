@@ -9,6 +9,7 @@ import com.bassem.lastfm.R;
 import com.bassem.lastfm.ui.BaseFragment;
 import com.bassem.lastfm.ui.topalbumslisting.TopAlbumsFragment;
 import com.bassem.lastfm.ui.topartistslisting.TopArtistsFragment;
+import com.bassem.lastfm.ui.toptrackslisting.TopTracksFragment;
 
 /**
  * Created by Bassem Samy on 6/15/2017.
@@ -32,12 +33,15 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
-            case TOP_ARTISTS_INDEX:{
-               return TopArtistsFragment.newInstance();
+        switch (position) {
+            case TOP_ARTISTS_INDEX: {
+                return TopArtistsFragment.newInstance();
             }
-            case TOP_ALBUMS_INDEX:{
+            case TOP_ALBUMS_INDEX: {
                 return TopAlbumsFragment.newInstance();
+            }
+            case TOP_TRACKS_INDEX: {
+                return TopTracksFragment.newInstance();
             }
         }
         return new TopArtistsFragment();

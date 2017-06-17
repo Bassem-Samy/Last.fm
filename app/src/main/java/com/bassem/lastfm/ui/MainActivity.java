@@ -17,14 +17,16 @@ import com.bassem.lastfm.R;
 import com.bassem.lastfm.adapters.MainPagerAdapter;
 import com.bassem.lastfm.models.Album;
 import com.bassem.lastfm.models.Artist;
+import com.bassem.lastfm.models.Track;
 import com.bassem.lastfm.ui.topalbumslisting.TopAlbumsFragment;
 import com.bassem.lastfm.ui.topartistslisting.TopArtistsFragment;
+import com.bassem.lastfm.ui.toptrackslisting.TopTracksFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnEditorAction;
 
-public class MainActivity extends AppCompatActivity implements TopArtistsFragment.OnFragmentInteractionListener, TopAlbumsFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements TopArtistsFragment.OnFragmentInteractionListener, TopAlbumsFragment.OnFragmentInteractionListener ,TopTracksFragment.OnFragmentInteractionListener{
 
     @BindView(R.id.tl_main)
     TabLayout mTabLayout;
@@ -86,5 +88,10 @@ public class MainActivity extends AppCompatActivity implements TopArtistsFragmen
                 startActivity(intent);
             }
         }
+    }
+
+    @Override
+    public void onTrackClicked(Track track) {
+
     }
 }

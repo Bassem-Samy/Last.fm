@@ -13,6 +13,9 @@ import android.widget.ProgressBar;
 
 import com.bassem.lastfm.R;
 import com.bassem.lastfm.models.Track;
+import com.bassem.lastfm.ui.toptrackslisting.di.DaggerTopTracksComponent;
+import com.bassem.lastfm.ui.toptrackslisting.di.TopTracksModule;
+import com.bassem.lastfm.utils.Constants;
 
 import java.util.List;
 
@@ -49,12 +52,13 @@ public class TopTracksFragment extends Fragment implements TopTracksView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        DaggerTopTracksComponent.builder().topTracksModule(new TopTracksModule(this)).build().inject(this);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mPresenter.getTopTracks("drrobbins", Constants.TOP_ITEMS_LIMIT, Constants.API_KEY);
     }
 
     @Override
