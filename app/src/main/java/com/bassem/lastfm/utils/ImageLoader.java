@@ -22,6 +22,7 @@ public class ImageLoader {
         Glide.with(weakReference.get()).load(imageUrl).asBitmap().placeholder(placeHolderResourceID).into(imageView);
     }
 
+    // load image with callbacks
     public static void loadImage(Context context, String imageUrl, int placeHolderResourceID, ImageView imageView, final ImageLoaderCallbacks callbacks) {
         WeakReference<Context> weakReference = new WeakReference<>(context);
         Glide.with(weakReference.get()).load(imageUrl).asBitmap().placeholder(placeHolderResourceID)

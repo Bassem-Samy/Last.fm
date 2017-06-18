@@ -16,6 +16,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bassem.lastfm.R;
 import com.bassem.lastfm.adapters.MainPagerAdapter;
@@ -62,11 +63,25 @@ public class MainActivity extends AppCompatActivity implements TopArtistsFragmen
     @OnEditorAction(R.id.edt_search)
     boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            searchUser(v.getText().toString());
+            if (isValidSearch(v.getText().toString())) {
+                searchUser(v.getText().toString());
+            } else {
+                showEnterValidUserNameToast();
+            }
             looseSearchEditTextFocus();
             return true;
         }
         return false;
+    }
+
+    private void showEnterValidUserNameToast() {
+        Toast.makeText(this, R.string.please_enter_a_user_name, Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean isValidSearch(String search) {
+        if (TextUtils.isEmpty(search))
+            return false;
+        return true;
     }
 
     // loops the base fragments and notify them to search with the given userName
