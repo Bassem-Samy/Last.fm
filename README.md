@@ -3,7 +3,7 @@
 The app simply displays the top 5 albums, artists and tracks for a [last.fm](https://www.last.fm/) user, you can type any user name and check his or her top fives.
 ## Technical Description:
 * The app is structured in MVP.
-* My most valuable reference for implementing MVP in android is [Antonio Leiva's Post](https://www.dropbox.com/s/r0wy953e50q0cra/feedback-app-release.apk?dl=0)
+* My most valuable reference for implementing MVP in android is [Antonio Leiva's Post](https://github.com/antoniolg/androidmvp)
 * The app uses last fm's [APIs](http://www.last.fm/api/intro) to get the user top lists.
 * To be able to use their APIs you need first to [create](https://www.last.fm/api/account/create) an API key.
 * You can use methods to get top artists, search for artits/tracks etc..
